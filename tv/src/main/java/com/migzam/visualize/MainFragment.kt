@@ -12,10 +12,6 @@ import androidx.leanback.widget.ListRowPresenter
 import androidx.leanback.widget.Presenter
 import com.bumptech.glide.Glide
 
-data class CardItem(val imageUrl: Int, val title: String)
-
-
-
 class MainFragment:BrowseSupportFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,14 +36,14 @@ class MainFragment:BrowseSupportFragment() {
         val header1 = HeaderItem(1L, categoryTitle1)
         rowsAdapter.add(ListRow(header1, listRowAdapter1))
 
-// Categoría 2
+        // Categoría 2
         val categoryTitle2 = "Test de Estereopsis"
         val listRowAdapter2 = ArrayObjectAdapter(CardPresenter())
         listRowAdapter2.addAll(0, listOf("Título 2.1", "Título 2.2", "Título 2.3", "Título 2.4", "Título 2.5"))
         val header2 = HeaderItem(2L, categoryTitle2)
         rowsAdapter.add(ListRow(header2, listRowAdapter2))
 
-// Categoría 3
+        // Categoría 3
         val categoryTitle3 = "Test de color (ISHIHARA)"
         val listRowAdapter3 = ArrayObjectAdapter(CardPresenter())
         listRowAdapter3.addAll(0, listOf("Título 3.1", "Título 3.2", "Título 3.3", "Título 3.4", "Título 3.5"))
@@ -55,11 +51,6 @@ class MainFragment:BrowseSupportFragment() {
         rowsAdapter.add(ListRow(header3, listRowAdapter3))
 
         adapter = rowsAdapter
-
-
-        val cardItem1 = CardItem(R.drawable.submenu_snellen, "SNELLEN") // Comment: Image for adapter
-        val cardItem2 = CardItem(R.drawable.submenu_log, "LETRAS LOGMAR")
-
 
     }
 }
@@ -77,23 +68,15 @@ class CardPresenter : Presenter() {
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
-        val cardItem = item as CardItem
+        val titulo = item as String
         val cardView = viewHolder.view as ImageCardView
 
-        cardView.titleText = cardItem.title
+        cardView.titleText = titulo
         cardView.setMainImageDimensions(313,176)
-
-        // Carga la imagen desde el almacenamiento local
-        Glide.with(cardView.context)
-            .load(cardItem.imageUrl) // Suponiendo que "imageUrl" contiene la ruta local
-            .into(cardView.mainImageView)
-
 
     }
 
     override fun onUnbindViewHolder(viewHolder: ViewHolder) {
-        with(viewHolder.view as ImageCardView) {
-            mainImage = null
-        }
+
     }
 }
