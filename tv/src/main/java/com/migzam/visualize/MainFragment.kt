@@ -2,15 +2,11 @@ package com.migzam.visualize
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.HeaderItem
-import androidx.leanback.widget.ImageCardView
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
-import androidx.leanback.widget.Presenter
-import com.bumptech.glide.Glide
 
 class MainFragment:BrowseSupportFragment() {
 
@@ -21,33 +17,52 @@ class MainFragment:BrowseSupportFragment() {
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
 
-        (3..6).forEach{metrosId->
+        (3..6).forEach { metrosId ->
             val titulo = "$metrosId metros"
             val listRowAdapter = ArrayObjectAdapter(CardPresenter())
-            listRowAdapter.addAll(0, listOf("SNELLEN", "LETRAS LOGMAR", "NUMERO LOGMAR", "C LANDOLT LOG", "NIÑOS","LETRAS",
-                                                    "NUMEROS","E DIRECCIONAL","ROJO-VERDE","DIAL","HERRAMIENTAS","PRUEBA Y AYUDA DIAGNOSTICAS"))
-            val header = HeaderItem(metrosId.toLong(),titulo)
-            rowsAdapter.add(ListRow(header,listRowAdapter))
+
+            val imageResourceIds = listOf(R.drawable.submenu_snellen, R.drawable.submenu_log,
+                R.drawable.submenu_numeroslog, R.drawable.submenu_clandoltlog,
+                R.drawable.submenu_ninos, R.drawable.submenu_letras,
+                R.drawable.submenu_numeros, R.drawable.submenu_edireccional,
+                R.drawable.submenu_rojoverde)
+
+            val titles = listOf("SNELLEN", "LETRAS LOGMAR", "NUMERO LOGMAR", "LANDOLT LOGMAR", "NIÑOS","LETRAS",
+                "NUMEROS","E DIRECCIONAL","ROJO VERDE")
+
+            listRowAdapter.addAll(0, imageResourceIds.zip(titles) { imageId, title ->
+                CardItem(listOf(imageId), title)})
+
+            val header = HeaderItem(metrosId.toLong(), titulo)
+            rowsAdapter.add(ListRow(header, listRowAdapter))
         }
-        // Categoría 1
-        val categoryTitle1 = "Maculopatia"
+
+        val titulo1 = "Test de color (ISHIHARA)"
         val listRowAdapter1 = ArrayObjectAdapter(CardPresenter())
-        listRowAdapter1.addAll(0, listOf("Título 1.1", "Título 1.2", "Título 1.3", "Título 1.4", "Título 1.5"))
-        val header1 = HeaderItem(1L, categoryTitle1)
+        val imageResourceIds1 = listOf(R.drawable.submenu_ishihara, R.drawable.submenu_ishiharaninos)
+        val titles1 = listOf("ISHIHARA","NIÑOS")
+        listRowAdapter1.addAll(0, imageResourceIds1.zip(titles1) { imageId, title ->
+            CardItem(listOf(imageId), title)})
+        val header1 = HeaderItem(1L, titulo1)
         rowsAdapter.add(ListRow(header1, listRowAdapter1))
 
-        // Categoría 2
-        val categoryTitle2 = "Test de Estereopsis"
+        val tittulo2 = "Maculopatia"
         val listRowAdapter2 = ArrayObjectAdapter(CardPresenter())
-        listRowAdapter2.addAll(0, listOf("Título 2.1", "Título 2.2", "Título 2.3", "Título 2.4", "Título 2.5"))
-        val header2 = HeaderItem(2L, categoryTitle2)
+        val imageResourceIds2 = listOf(R.drawable.submenu_maculopatia)
+        val titles2 = listOf("MACULOPATIA")
+        listRowAdapter2.addAll(0, imageResourceIds2.zip(titles2) { imageId, title ->
+            CardItem(listOf(imageId), title)})
+        val header2 = HeaderItem(1L, tittulo2)
         rowsAdapter.add(ListRow(header2, listRowAdapter2))
 
-        // Categoría 3
-        val categoryTitle3 = "Test de color (ISHIHARA)"
+
+        val tittulo3 = "Test de Estereopsis"
         val listRowAdapter3 = ArrayObjectAdapter(CardPresenter())
-        listRowAdapter3.addAll(0, listOf("Título 3.1", "Título 3.2", "Título 3.3", "Título 3.4", "Título 3.5"))
-        val header3 = HeaderItem(3L, categoryTitle3)
+        val imageResourceIds3 = listOf(R.drawable.submenu_estereopsis)
+        val titles3 = listOf("ESTEREOPSIS")
+        listRowAdapter3.addAll(0, imageResourceIds3.zip(titles3) { imageId, title ->
+            CardItem(listOf(imageId), title)})
+        val header3 = HeaderItem(1L, tittulo3)
         rowsAdapter.add(ListRow(header3, listRowAdapter3))
 
         adapter = rowsAdapter
@@ -55,28 +70,6 @@ class MainFragment:BrowseSupportFragment() {
     }
 }
 
-class CardPresenter : Presenter() {
+data class CardItem(val imageResourceIds: List<Int>, val title: String)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
-
-        val cardView = ImageCardView(parent.context)
-        cardView.isFocusable = true
-        cardView.isFocusableInTouchMode = true
-
-        return ViewHolder(cardView)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
-        val titulo = item as String
-        val cardView = viewHolder.view as ImageCardView
-
-        cardView.titleText = titulo
-        cardView.setMainImageDimensions(313,176)
-
-    }
-
-    override fun onUnbindViewHolder(viewHolder: ViewHolder) {
-
-    }
-}
