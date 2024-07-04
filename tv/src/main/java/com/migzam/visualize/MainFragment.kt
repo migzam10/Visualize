@@ -8,6 +8,8 @@ import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
 
+
+
 class MainFragment:BrowseSupportFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -17,59 +19,48 @@ class MainFragment:BrowseSupportFragment() {
 
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
 
-        (3..6).forEach { metrosId ->
-            val titulo = "$metrosId metros"
+        val cardDataMap = mapOf(
+            "3 metros" to listOf(
+                CardItem(listOf(R.drawable.metros3_snellen2,R.drawable.metros3_snellen1,R.drawable.metros3_snellen2), "SNELLEN"),
+                CardItem(listOf(R.drawable.submenu_log,R.drawable.metros3_letraslog1, R.drawable.metros3_letraslog1n,
+                    R.drawable.metros3_letraslog2, R.drawable.metros3_letraslog2n, R.drawable.metros3_letraslog3,
+                    R.drawable.metros3_letraslog3n), "LETRAS LOGMAR"),
+                CardItem(listOf(R.drawable.submenu_numeroslog,R.drawable.metros3_numerolog1, R.drawable.metros3_numerolog1n,
+                    R.drawable.metros3_numerolog2, R.drawable.metros3_numerolog2n, R.drawable.metros3_numerolog3, R.drawable.metros3_numerolog3n),
+                    "NUMERO LOGMAR"),
+                CardItem(listOf(R.drawable.submenu_clandoltlog,R.drawable.metros3_clandolt1,R.drawable.metros3_clandolt1n, R.drawable.metros3_clandolt2,
+                    R.drawable.metros3_clandolt2n,R.drawable.metros3_clandolt3,R.drawable.metros3_clandolt3n), "LANDOLT LOGMAR"),
+                CardItem(listOf(R.drawable.submenu_ninos,R.drawable.metros3_ninos1,R.drawable.metros3_ninos1n,R.drawable.metros3_ninos2,R.drawable.metros3_ninos2n,
+                    R.drawable.metros3_ninos3,R.drawable.metros3_ninos3n,R.drawable.metros3_ninos4,R.drawable.metros3_ninos4n,R.drawable.metros3_ninos5,R.drawable.metros3_ninos5n,
+                    R.drawable.metros3_ninos6,R.drawable.metros3_ninos6n), "NIÑOS"),
+                CardItem(listOf(R.drawable.submenu_letras,), "LETRAS"),
+                CardItem(listOf(R.drawable.submenu_numeros,), "NUMEROS"),
+                CardItem(listOf(R.drawable.submenu_edireccional,R.drawable.metros3_edirlog1,R.drawable.metros3_edirlog1n,R.drawable.metros3_edirlog2,
+                    R.drawable.metros3_edirlog2n,R.drawable.metros3_edirlog3,R.drawable.metros3_edirlog3n), "E DIRECCIONAL"),
+                CardItem(listOf(R.drawable.submenu_rojoverde,), "ROJO VERDE"),
+            ),
+
+            "Test de color (ISHIHARA)" to listOf(
+                CardItem(listOf(R.drawable.submenu_ishihara,R.drawable.submenu_snellen), "ISHIHARA"),
+                CardItem(listOf(R.drawable.submenu_ishiharaninos,R.drawable.submenu_snellen), "NIÑOS")
+            ),
+            "Maculopatia" to listOf(
+                CardItem(listOf(R.drawable.submenu_maculopatia, R.drawable.submenu_maculopatia), "MACULOPATIA")
+            ),
+            "Test de Estereopsis" to listOf(
+                CardItem(listOf(R.drawable.submenu_estereopsis, R.drawable.submenu_estereopsis), "ESTEREOPSIS")
+            )
+        )
+
+        // Agregar las filas al adaptador
+        cardDataMap.forEach { (headerTitle, cardItems) ->
             val listRowAdapter = ArrayObjectAdapter(CardPresenter())
-
-            val imageResourceIds = listOf(R.drawable.submenu_snellen, R.drawable.submenu_log,
-                R.drawable.submenu_numeroslog, R.drawable.submenu_clandoltlog,
-                R.drawable.submenu_ninos, R.drawable.submenu_letras,
-                R.drawable.submenu_numeros, R.drawable.submenu_edireccional,
-                R.drawable.submenu_rojoverde)
-
-            val titles = listOf("SNELLEN", "LETRAS LOGMAR", "NUMERO LOGMAR", "LANDOLT LOGMAR", "NIÑOS","LETRAS",
-                "NUMEROS","E DIRECCIONAL","ROJO VERDE")
-
-            listRowAdapter.addAll(0, imageResourceIds.zip(titles) { imageId, title ->
-                CardItem(listOf(imageId), title)})
-
-            val header = HeaderItem(metrosId.toLong(), titulo)
+            listRowAdapter.addAll(0, cardItems)
+            val header = HeaderItem(headerTitle.hashCode().toLong(), headerTitle)
             rowsAdapter.add(ListRow(header, listRowAdapter))
         }
-
-        val titulo1 = "Test de color (ISHIHARA)"
-        val listRowAdapter1 = ArrayObjectAdapter(CardPresenter())
-        val imageResourceIds1 = listOf(R.drawable.submenu_ishihara, R.drawable.submenu_ishiharaninos)
-        val titles1 = listOf("ISHIHARA","NIÑOS")
-        listRowAdapter1.addAll(0, imageResourceIds1.zip(titles1) { imageId, title ->
-            CardItem(listOf(imageId), title)})
-        val header1 = HeaderItem(1L, titulo1)
-        rowsAdapter.add(ListRow(header1, listRowAdapter1))
-
-        val tittulo2 = "Maculopatia"
-        val listRowAdapter2 = ArrayObjectAdapter(CardPresenter())
-        val imageResourceIds2 = listOf(R.drawable.submenu_maculopatia)
-        val titles2 = listOf("MACULOPATIA")
-        listRowAdapter2.addAll(0, imageResourceIds2.zip(titles2) { imageId, title ->
-            CardItem(listOf(imageId), title)})
-        val header2 = HeaderItem(1L, tittulo2)
-        rowsAdapter.add(ListRow(header2, listRowAdapter2))
-
-
-        val tittulo3 = "Test de Estereopsis"
-        val listRowAdapter3 = ArrayObjectAdapter(CardPresenter())
-        val imageResourceIds3 = listOf(R.drawable.submenu_estereopsis)
-        val titles3 = listOf("ESTEREOPSIS")
-        listRowAdapter3.addAll(0, imageResourceIds3.zip(titles3) { imageId, title ->
-            CardItem(listOf(imageId), title)})
-        val header3 = HeaderItem(1L, tittulo3)
-        rowsAdapter.add(ListRow(header3, listRowAdapter3))
 
         adapter = rowsAdapter
 
     }
 }
-
-data class CardItem(val imageResourceIds: List<Int>, val title: String)
-
-
