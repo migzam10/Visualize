@@ -20,29 +20,14 @@ class MainFragment:BrowseSupportFragment() {
         val rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
 
         val cardDataMap = mapOf(
-            "3 metros" to listOf(
-                CardItem(listOf(R.drawable.metros3_snellen2,R.drawable.metros3_snellen1,R.drawable.metros3_snellen2), "SNELLEN"),
-                CardItem(listOf(R.drawable.submenu_log,R.drawable.metros3_letraslog1, R.drawable.metros3_letraslog1n,
-                    R.drawable.metros3_letraslog2, R.drawable.metros3_letraslog2n, R.drawable.metros3_letraslog3,
-                    R.drawable.metros3_letraslog3n), "LETRAS LOGMAR"),
-                CardItem(listOf(R.drawable.submenu_numeroslog,R.drawable.metros3_numerolog1, R.drawable.metros3_numerolog1n,
-                    R.drawable.metros3_numerolog2, R.drawable.metros3_numerolog2n, R.drawable.metros3_numerolog3, R.drawable.metros3_numerolog3n),
-                    "NUMERO LOGMAR"),
-                CardItem(listOf(R.drawable.submenu_clandoltlog,R.drawable.metros3_clandolt1,R.drawable.metros3_clandolt1n, R.drawable.metros3_clandolt2,
-                    R.drawable.metros3_clandolt2n,R.drawable.metros3_clandolt3,R.drawable.metros3_clandolt3n), "LANDOLT LOGMAR"),
-                CardItem(listOf(R.drawable.submenu_ninos,R.drawable.metros3_ninos1,R.drawable.metros3_ninos1n,R.drawable.metros3_ninos2,R.drawable.metros3_ninos2n,
-                    R.drawable.metros3_ninos3,R.drawable.metros3_ninos3n,R.drawable.metros3_ninos4,R.drawable.metros3_ninos4n,R.drawable.metros3_ninos5,R.drawable.metros3_ninos5n,
-                    R.drawable.metros3_ninos6,R.drawable.metros3_ninos6n), "NIÑOS"),
-                CardItem(listOf(R.drawable.submenu_letras,), "LETRAS"),
-                CardItem(listOf(R.drawable.submenu_numeros,), "NUMEROS"),
-                CardItem(listOf(R.drawable.submenu_edireccional,R.drawable.metros3_edirlog1,R.drawable.metros3_edirlog1n,R.drawable.metros3_edirlog2,
-                    R.drawable.metros3_edirlog2n,R.drawable.metros3_edirlog3,R.drawable.metros3_edirlog3n), "E DIRECCIONAL"),
-                CardItem(listOf(R.drawable.submenu_rojoverde,), "ROJO VERDE"),
-            ),
+            "3 metros" to generarListCardItems(3),
+            "4 metros" to generarListCardItems(4),
+            "5 metros" to generarListCardItems(5),
+            "6 metros" to generarListCardItems(6),
 
             "Test de color (ISHIHARA)" to listOf(
-                CardItem(listOf(R.drawable.submenu_ishihara,R.drawable.submenu_snellen), "ISHIHARA"),
-                CardItem(listOf(R.drawable.submenu_ishiharaninos,R.drawable.submenu_snellen), "NIÑOS")
+                CardItem(listOf(R.drawable.submenu_ishihara,R.drawable.submenu_ishihara), "ISHIHARA"),
+                CardItem(listOf(R.drawable.submenu_ishiharaninos,R.drawable.submenu_ishihara), "NIÑOS")
             ),
             "Maculopatia" to listOf(
                 CardItem(listOf(R.drawable.submenu_maculopatia, R.drawable.submenu_maculopatia), "MACULOPATIA")
@@ -63,4 +48,64 @@ class MainFragment:BrowseSupportFragment() {
         adapter = rowsAdapter
 
     }
+
+    fun generarListCardItems(metrosNum: Int): List<CardItem> {
+        val prefijo = "metros${metrosNum}_"
+        return listOf(
+            CardItem(listOf(
+                R.drawable::class.java.getField("${prefijo}snellen2").getInt(null),
+                R.drawable::class.java.getField("${prefijo}snellen1").getInt(null),
+                R.drawable::class.java.getField("${prefijo}snellen2").getInt(null)), "SNELLEN"),
+            CardItem(listOf(
+                R.drawable.submenu_log,
+                R.drawable::class.java.getField("${prefijo}letraslog1").getInt(null),
+                R.drawable::class.java.getField("${prefijo}letraslog1n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}letraslog2").getInt(null),
+                R.drawable::class.java.getField("${prefijo}letraslog2n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}letraslog3").getInt(null),
+                R.drawable::class.java.getField("${prefijo}letraslog3n").getInt(null)), "LETRAS LOGMAR"),
+            CardItem(listOf(
+                R.drawable.submenu_numeroslog,
+                R.drawable::class.java.getField("${prefijo}numerolog1").getInt(null),
+                R.drawable::class.java.getField("${prefijo}numerolog1n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}numerolog2").getInt(null),
+                R.drawable::class.java.getField("${prefijo}numerolog2n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}numerolog3").getInt(null),
+                R.drawable::class.java.getField("${prefijo}numerolog3n").getInt(null)), "NUMERO LOGMAR"),
+            CardItem(listOf(
+                R.drawable.submenu_clandoltlog,
+                R.drawable::class.java.getField("${prefijo}clandolt1").getInt(null),
+                R.drawable::class.java.getField("${prefijo}clandolt1n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}clandolt2").getInt(null),
+                R.drawable::class.java.getField("${prefijo}clandolt2n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}clandolt3").getInt(null),
+                R.drawable::class.java.getField("${prefijo}clandolt3n").getInt(null)), "LANDOLT LOGMAR"),
+            CardItem(listOf(
+                R.drawable.submenu_ninos,
+                R.drawable::class.java.getField("${prefijo}ninos1").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos1n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos2").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos2n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos3").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos3n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos4").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos4n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos5").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos5n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos6").getInt(null),
+                R.drawable::class.java.getField("${prefijo}ninos6n").getInt(null)), "NIÑOS"),
+            CardItem(listOf(R.drawable.submenu_letras), "LETRAS"),
+            CardItem(listOf(R.drawable.submenu_numeros), "NUMEROS"),
+            CardItem(listOf(
+                R.drawable.submenu_edireccional,
+                R.drawable::class.java.getField("${prefijo}edirlog1").getInt(null),
+                R.drawable::class.java.getField("${prefijo}edirlog1n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}edirlog2").getInt(null),
+                R.drawable::class.java.getField("${prefijo}edirlog2n").getInt(null),
+                R.drawable::class.java.getField("${prefijo}edirlog3").getInt(null),
+                R.drawable::class.java.getField("${prefijo}edirlog3n").getInt(null)), "E DIRECCIONAL")
+            //CardItem(listOf(R.drawable.submenu_rojoverde), "ROJO VERDE")
+        )
+    }
+
 }
